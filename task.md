@@ -23,10 +23,14 @@
 
 ## Phase 4: Tools Implementation
 - [ ] Saju Calculator tool
-  - [ ] Input form with validation
-  - [ ] Four Pillars calculation logic
-  - [ ] Result display with pillars layout
-  - [ ] Interpretation section
+  - [ ] Phase 6: Deployment & Verification
+    - [x] Configure `astro.config.mjs` for production URL
+    - [x] Fix sitemap build error (removed integration)
+    - [x] Verify local build success
+    - [/] Update Cloudflare Pages deployment to latest commit
+    - [ ] Verify `ads.txt` and robots.txt accessibility
+    - [ ] Run Lighthouse audit for performance/SEO
+    - [x] Complete README with detailed setup instructions
 - [ ] Compatibility tool
   - [ ] Dual profile input form
   - [ ] Compatibility scoring algorithm

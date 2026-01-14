@@ -113,7 +113,7 @@ const displayGuides = featuredGuides.length > 0 ? featuredGuides.slice(0, 6) : a
         </div>
 
         <!-- Four Pillars Visual -->
-        <div class="grid grid-cols-4 gap-4">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 lg:mt-0">
           {['Hour', 'Day', 'Month', 'Year'].map((pillar, index) => (
             <div class="card text-center" style={`animation-delay: ${index * 0.1}s`}>
               <div class="w-12 h-12 mx-auto mb-3 rounded-xl bg-gradient-to-br from-primary-500/20 to-accent-500/20 flex items-center justify-center">
