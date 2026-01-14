@@ -4,7 +4,7 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://your-domain.com', // Update with your actual domain
+  site: 'https://newsaju.pages.dev', // Your Cloudflare Pages domain
   output: 'static',
   integrations: [
     tailwind(),
