@@ -1,0 +1,146 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SEO from '../components/SEO.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  updatedDate?: Date;
+  author: string;
+  image?: string;
+  tags: string[];
+  readingTime?: string;
+}
+
+const { title, description, pubDate, updatedDate, author, image, tags, readingTime } = Astro.props;
+const formattedPubDate = pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+const formattedUpdatedDate = updatedDate?.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <SEO 
+      title={`${title} - Korean Saju Guide`}
+      description={description}
+      type="article"
+      publishedTime={pubDate.toISOString()}
+      modifiedTime={updatedDate?.toISOString()}
+      author={author}
+      image={image}
+    />
+
+    <!-- Article Schema -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": title,
+      "description": description,
+      "author": {
+        "@type": "Organization",
+        "name": author
+      },
+      "datePublished": pubDate.toISOString(),
+      "dateModified": (updatedDate || pubDate).toISOString(),
+      "publisher": {
+        "@type": "Organization",
+        "name": "Korean Saju Guide",
+        "logo": {
+          "@type": "ImageObject",
+          "url": `${Astro.site}favicon.svg`
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": Astro.url.href
+      }
+    })} />
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-dark-950/80 backdrop-blur-lg border-b border-dark-800/50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <a href="/" class="flex items-center space-x-2 group">
+            <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-accent-500 rounded-xl flex items-center justify-center">
+              <span class="text-white font-bold text-lg">四</span>
+            </div>
+            <span class="font-heading font-bold text-xl text-dark-50 hidden sm:block">Saju Guide</span>
+          </a>
+          <a href="/guides" class="btn-secondary text-sm">
+            ← All Guides
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="flex-1 pt-16">
+      <article class="py-12 md:py-24">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <!-- Header -->
+          <header class="mb-12">
+            <div class="flex flex-wrap items-center gap-2 mb-4">
+              {tags.map(tag => (
+                <span class="text-xs font-medium px-2 py-1 rounded-full bg-primary-500/10 text-primary-400">
+                  {tag}
+                </span>
+              ))}
+            </div>
+            
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-dark-50 mb-6">
+              {title}
+            </h1>
+            
+            <p class="text-xl text-dark-400 mb-6">{description}</p>
+            
+            <div class="flex flex-wrap items-center gap-4 text-sm text-dark-500">
+              <span>By {author}</span>
+              <span>•</span>
+              <time datetime={pubDate.toISOString()}>{formattedPubDate}</time>
+              {updatedDate && (
+                <>
+                  <span>•</span>
+                  <span>Updated {formattedUpdatedDate}</span>
+                </>
+              )}
+              {readingTime && (
+                <>
+                  <span>•</span>
+                  <span>{readingTime}</span>
+                </>
+              )}
+            </div>
+          </header>
+
+          <!-- Content -->
+          <div class="prose prose-lg max-w-none">
+            <slot />
+          </div>
+
+          <!-- Footer -->
+          <footer class="mt-12 pt-8 border-t border-dark-700">
+            <div class="card bg-dark-800/30 border-primary-500/20">
+              <h3 class="font-heading text-lg font-semibold text-dark-50 mb-3">Ready to explore your Saju?</h3>
+              <p class="text-dark-400 mb-4">
+                Try our free tools to calculate your Four Pillars chart or check relationship compatibility.
+              </p>
+              <div class="flex flex-wrap gap-3">
+                <a href="/tools/saju-calculator" class="btn-primary text-sm">Calculate Your Saju</a>
+                <a href="/tools/compatibility" class="btn-secondary text-sm">Check Compatibility</a>
+              </div>
+            </div>
+          </footer>
+        </div>
+      </article>
+    </main>
+
+    <Footer />
+  </body>
+</html>

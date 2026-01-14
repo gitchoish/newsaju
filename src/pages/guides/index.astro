@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import GuideCard from '../../components/GuideCard.astro';
+import { getCollection } from 'astro:content';
+
+const allGuides = await getCollection('guides');
+const sortedGuides = allGuides.sort((a, b) => 
+  b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+// Get unique tags
+const allTags = [...new Set(allGuides.flatMap(guide => guide.data.tags))];
+---
+
+<BaseLayout 
+  title="Saju Guides - Learn About Korean Four Pillars"
+  description="Comprehensive guides on Korean Four Pillars (Saju). Learn about the Five Elements, Heavenly Stems, Earthly Branches, and how to interpret your birth chart."
+>
+  <section class="py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Header -->
+      <div class="text-center mb-16">
+        <h1 class="text-4xl md:text-5xl font-heading font-bold text-dark-50 mb-6">
+          Saju <span class="gradient-text">Guides</span>
+        </h1>
+        <p class="text-xl text-dark-400 max-w-2xl mx-auto">
+          Everything you need to understand Korean Four Pillars, from basics to advanced concepts
+        </p>
+      </div>
+
+      <!-- Tags Filter (optional visual) -->
+      <div class="flex flex-wrap justify-center gap-2 mb-12">
+        <span class="text-sm px-3 py-1 rounded-full bg-primary-500/20 text-primary-400 border border-primary-500/30">
+          All Guides ({allGuides.length})
+        </span>
+        {allTags.slice(0, 6).map(tag => (
+          <span class="text-sm px-3 py-1 rounded-full bg-dark-800/50 text-dark-400 border border-dark-700">
+            {tag}
+          </span>
+        ))}
+      </div>
+
+      <!-- Guides Grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {sortedGuides.map((guide) => (
+          <GuideCard
+            title={guide.data.title}
+            description={guide.data.description}
+            href={`/guides/${guide.slug}`}
+            tags={guide.data.tags}
+            readingTime={guide.data.readingTime}
+          />
+        ))}
+      </div>
+
+      {sortedGuides.length === 0 && (
+        <div class="text-center py-12">
+          <p class="text-dark-400">No guides available yet. Check back soon!</p>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

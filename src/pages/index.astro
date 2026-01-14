@@ -1,0 +1,304 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import GuideCard from '../components/GuideCard.astro';
+import { getCollection } from 'astro:content';
+
+const featuredGuides = await getCollection('guides', ({ data }) => data.featured === true);
+const allGuides = await getCollection('guides');
+const displayGuides = featuredGuides.length > 0 ? featuredGuides.slice(0, 6) : allGuides.slice(0, 6);
+---
+
+<BaseLayout 
+  title="Korean Saju Guide - Discover Your Four Pillars Destiny"
+  description="Explore the ancient Korean wisdom of Saju (Four Pillars). Calculate your birth chart, check relationship compatibility, and learn about this fascinating cultural tradition."
+>
+  <!-- Hero Section -->
+  <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+    <!-- Background Effects -->
+    <div class="absolute inset-0 bg-gradient-to-br from-dark-950 via-dark-900 to-dark-950"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary-500/20 via-transparent to-transparent"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-accent-500/10 via-transparent to-transparent"></div>
+    
+    <!-- Animated Orbs -->
+    <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-primary-500/30 rounded-full blur-[100px] animate-pulse-slow"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent-500/20 rounded-full blur-[120px] animate-pulse-slow" style="animation-delay: 1s;"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-dark-800/50 border border-dark-700/50 mb-8 animate-fade-in">
+        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+        <span class="text-sm text-dark-300">Discover Your Cosmic Blueprint</span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 animate-slide-up">
+        <span class="text-dark-50">Unlock the Wisdom of</span>
+        <br />
+        <span class="gradient-text">Korean Four Pillars</span>
+      </h1>
+
+      <!-- Subheadline -->
+      <p class="text-lg sm:text-xl text-dark-400 max-w-2xl mx-auto mb-10 animate-slide-up" style="animation-delay: 0.1s;">
+        Explore Saju (사주), the ancient Korean system of destiny analysis. 
+        Discover personality insights and relationship compatibility through this fascinating cultural tradition.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up" style="animation-delay: 0.2s;">
+        <a href="/tools/saju-calculator" class="btn-primary w-full sm:w-auto">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+          </svg>
+          Calculate Your Saju
+        </a>
+        <a href="/tools/compatibility" class="btn-secondary w-full sm:w-auto">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+          Check Compatibility
+        </a>
+      </div>
+
+      <!-- Trust Indicators -->
+      <div class="mt-16 flex flex-wrap items-center justify-center gap-8 text-dark-500 text-sm animate-fade-in" style="animation-delay: 0.4s;">
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+          <span>Privacy-First</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+          <span>Cultural Education</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+          <span>No Server Required</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <svg class="w-6 h-6 text-dark-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- What is Saju Section -->
+  <section class="py-24 bg-dark-900/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl md:text-4xl font-heading font-bold text-dark-50 mb-6">
+            What is <span class="gradient-text">Saju</span>?
+          </h2>
+          <p class="text-dark-300 text-lg mb-6 leading-relaxed">
+            Saju (사주/四柱), meaning "Four Pillars," is a traditional Korean system of destiny analysis based on the principles of Eastern philosophy. It uses your birth date and time to create a unique chart consisting of four pillars: Year, Month, Day, and Hour.
+          </p>
+          <p class="text-dark-400 mb-8 leading-relaxed">
+            Each pillar is composed of a Heavenly Stem (天干) and an Earthly Branch (地支), creating a cosmic blueprint that reflects your personality tendencies, strengths, and potential life patterns. Rooted in the Five Elements theory (Wood, Fire, Earth, Metal, Water), Saju offers a fascinating lens for self-reflection and cultural exploration.
+          </p>
+          <a href="/guides/what-is-saju-korean-four-pillars" class="btn-secondary inline-flex">
+            Learn More About Saju
+            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Four Pillars Visual -->
+        <div class="grid grid-cols-4 gap-4">
+          {['Hour', 'Day', 'Month', 'Year'].map((pillar, index) => (
+            <div class="card text-center" style={`animation-delay: ${index * 0.1}s`}>
+              <div class="w-12 h-12 mx-auto mb-3 rounded-xl bg-gradient-to-br from-primary-500/20 to-accent-500/20 flex items-center justify-center">
+                <span class="text-2xl">
+                  {index === 0 ? '時' : index === 1 ? '日' : index === 2 ? '月' : '年'}
+                </span>
+              </div>
+              <h3 class="font-heading font-semibold text-dark-50 text-sm">{pillar}</h3>
+              <p class="text-xs text-dark-500 mt-1">Pillar</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="section-title">
+          How It <span class="gradient-text">Works</span>
+        </h2>
+        <p class="section-subtitle">
+          Get your personalized Saju reading in just three simple steps
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        {[
+          {
+            step: '01',
+            title: 'Enter Your Birth Info',
+            description: 'Provide your birth date, time (if known), and timezone. The more accurate your birth time, the more precise your reading.',
+            icon: '📝'
+          },
+          {
+            step: '02',
+            title: 'Generate Your Chart',
+            description: 'Our calculator computes your Four Pillars based on the traditional Korean calendar system and Five Elements theory.',
+            icon: '✨'
+          },
+          {
+            step: '03',
+            title: 'Explore Your Results',
+            description: 'Discover personality insights, strengths, and potential areas for growth. Use this for self-reflection and personal development.',
+            icon: '🔮'
+          }
+        ].map((item, index) => (
+          <div class="card relative overflow-hidden group">
+            <div class="absolute top-0 right-0 text-8xl font-heading font-bold text-dark-800/30 -mr-4 -mt-4 group-hover:text-primary-500/10 transition-colors duration-500">
+              {item.step}
+            </div>
+            <div class="relative z-10">
+              <div class="text-4xl mb-4">{item.icon}</div>
+              <h3 class="font-heading text-xl font-semibold text-dark-50 mb-3">{item.title}</h3>
+              <p class="text-dark-400">{item.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Popular Guides Section -->
+  <section class="py-24 bg-dark-900/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between mb-12">
+        <div>
+          <h2 class="text-3xl md:text-4xl font-heading font-bold text-dark-50">
+            Popular <span class="gradient-text">Guides</span>
+          </h2>
+          <p class="text-dark-400 mt-2">Learn everything about Korean Four Pillars</p>
+        </div>
+        <a href="/guides" class="btn-secondary hidden sm:inline-flex">
+          View All Guides
+          <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {displayGuides.map((guide) => (
+          <GuideCard
+            title={guide.data.title}
+            description={guide.data.description}
+            href={`/guides/${guide.slug}`}
+            tags={guide.data.tags}
+            readingTime={guide.data.readingTime}
+          />
+        ))}
+      </div>
+
+      <div class="mt-8 text-center sm:hidden">
+        <a href="/guides" class="btn-secondary inline-flex">
+          View All Guides
+          <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Section -->
+  <section class="py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="section-title">
+          Built on <span class="gradient-text">Trust</span>
+        </h2>
+        <p class="section-subtitle">
+          We're committed to providing an ethical, respectful, and transparent experience
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        {[
+          {
+            icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>`,
+            title: 'Privacy-First',
+            description: 'All calculations happen in your browser. We never store your birth data on any server. Your personal information stays private.'
+          },
+          {
+            icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>`,
+            title: 'Cultural Respect',
+            description: 'We present Saju as a cultural tradition with deep historical roots, not as fortune-telling or prediction. We honor its Korean heritage.'
+          },
+          {
+            icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`,
+            title: 'Transparent Disclaimer',
+            description: 'This is for entertainment and self-reflection only. We clearly state that Saju should not replace professional advice for life decisions.'
+          }
+        ].map((item) => (
+          <div class="card text-center">
+            <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-primary-500/20 to-accent-500/20 flex items-center justify-center text-primary-400" set:html={item.icon} />
+            <h3 class="font-heading text-xl font-semibold text-dark-50 mb-3">{item.title}</h3>
+            <p class="text-dark-400">{item.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Disclaimer Banner -->
+      <div class="mt-12 card bg-dark-800/30 border-primary-500/20">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center">
+            <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+          <div>
+            <h4 class="font-heading font-semibold text-dark-50 mb-1">Important Disclaimer</h4>
+            <p class="text-dark-400 text-sm">
+              The readings provided on this site are for <strong class="text-dark-200">entertainment and self-reflection purposes only</strong>. 
+              They are not intended as professional advice and should not be used for making important life decisions. 
+              Saju is a cultural tradition and should be enjoyed as such—for personal curiosity and growth, 
+              not as a deterministic prediction of your future. Please consult qualified professionals for medical, 
+              legal, financial, or psychological matters.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-24 bg-gradient-to-br from-dark-900 via-dark-950 to-dark-900 relative overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary-500/10 via-transparent to-transparent"></div>
+    
+    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl md:text-4xl font-heading font-bold text-dark-50 mb-6">
+        Ready to Explore Your <span class="gradient-text">Four Pillars</span>?
+      </h2>
+      <p class="text-dark-400 text-lg mb-8">
+        Discover what the ancient Korean wisdom of Saju reveals about your personality and life path.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="/tools/saju-calculator" class="btn-primary w-full sm:w-auto">
+          Start Your Free Reading
+        </a>
+        <a href="/guides" class="btn-secondary w-full sm:w-auto">
+          Browse Our Guides
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

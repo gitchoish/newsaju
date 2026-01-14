@@ -1,0 +1,341 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="Compatibility Test - Korean Saju Relationship Analysis"
+  description="Check your relationship compatibility using Korean Four Pillars (Saju). Discover how your energies interact with your partner."
+>
+  <section class="py-24">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Header -->
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-heading font-bold text-dark-50 mb-6">
+          Compatibility <span class="gradient-text">Test</span>
+        </h1>
+        <p class="text-xl text-dark-400 max-w-2xl mx-auto">
+          Explore how two people's Four Pillars energies interact
+        </p>
+      </div>
+
+      <!-- Calculator Form -->
+      <div id="form-section" class="space-y-8">
+        <form id="compatibility-form" class="space-y-8">
+          <div class="grid lg:grid-cols-2 gap-8">
+            <!-- Person 1 -->
+            <div class="card">
+              <h2 class="font-heading text-xl font-bold text-dark-50 mb-6 flex items-center gap-2">
+                <span class="w-8 h-8 rounded-full bg-primary-500/20 flex items-center justify-center text-primary-400">1</span>
+                Person One
+              </h2>
+              
+              <div class="space-y-4">
+                <div>
+                  <label for="name1" class="label">Name (optional)</label>
+                  <input type="text" id="name1" name="name1" class="input-field" placeholder="Enter name" />
+                </div>
+                
+                <div>
+                  <label for="birthDate1" class="label">Birth Date *</label>
+                  <input type="date" id="birthDate1" name="birthDate1" required class="input-field" />
+                </div>
+                
+                <div>
+                  <label for="birthTime1" class="label">Birth Time (optional)</label>
+                  <input type="time" id="birthTime1" name="birthTime1" class="input-field" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Person 2 -->
+            <div class="card">
+              <h2 class="font-heading text-xl font-bold text-dark-50 mb-6 flex items-center gap-2">
+                <span class="w-8 h-8 rounded-full bg-accent-500/20 flex items-center justify-center text-accent-400">2</span>
+                Person Two
+              </h2>
+              
+              <div class="space-y-4">
+                <div>
+                  <label for="name2" class="label">Name (optional)</label>
+                  <input type="text" id="name2" name="name2" class="input-field" placeholder="Enter name" />
+                </div>
+                
+                <div>
+                  <label for="birthDate2" class="label">Birth Date *</label>
+                  <input type="date" id="birthDate2" name="birthDate2" required class="input-field" />
+                </div>
+                
+                <div>
+                  <label for="birthTime2" class="label">Birth Time (optional)</label>
+                  <input type="time" id="birthTime2" name="birthTime2" class="input-field" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Consent -->
+          <div class="card bg-dark-800/30">
+            <label class="flex items-start gap-3 cursor-pointer">
+              <input 
+                type="checkbox" 
+                id="consent" 
+                name="consent" 
+                required
+                class="mt-1 w-4 h-4 rounded border-dark-600 bg-dark-800 text-primary-500 focus:ring-primary-500"
+              />
+              <span class="text-sm text-dark-300">
+                I understand that this compatibility reading is for <strong class="text-dark-100">entertainment and self-reflection only</strong>. 
+                Relationship success depends on many factors beyond Saju compatibility.
+                I have read and agree to the <a href="/disclaimer" class="text-primary-400 hover:underline">Disclaimer</a>.
+              </span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn-primary w-full">
+            Check Compatibility
+          </button>
+        </form>
+      </div>
+
+      <!-- Results Section -->
+      <div id="results-section" class="hidden space-y-8">
+        <!-- Overall Score -->
+        <div class="card text-center">
+          <h2 class="font-heading text-2xl font-bold text-dark-50 mb-2" id="result-title">Compatibility Result</h2>
+          <p class="text-dark-400 mb-8" id="result-names"></p>
+          
+          <div class="relative w-48 h-48 mx-auto mb-8">
+            <svg class="w-full h-full -rotate-90" viewBox="0 0 100 100">
+              <circle
+                cx="50" cy="50" r="45"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="8"
+                class="text-dark-800"
+              />
+              <circle
+                id="score-circle"
+                cx="50" cy="50" r="45"
+                fill="none"
+                stroke="url(#gradient)"
+                stroke-width="8"
+                stroke-linecap="round"
+                stroke-dasharray="283"
+                stroke-dashoffset="283"
+                class="transition-all duration-1000"
+              />
+              <defs>
+                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#0ea5e9" />
+                  <stop offset="100%" stop-color="#d946ef" />
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <span id="score-text" class="text-5xl font-heading font-bold text-dark-50">0</span>
+            </div>
+          </div>
+
+          <p id="score-summary" class="text-dark-300 max-w-2xl mx-auto"></p>
+        </div>
+
+        <!-- Sub Scores -->
+        <div class="card">
+          <h3 class="font-heading text-xl font-bold text-dark-50 mb-6">Compatibility Breakdown</h3>
+          <div id="sub-scores" class="space-y-4">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Strengths & Challenges -->
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="card">
+            <h3 class="font-heading text-lg font-semibold text-green-400 mb-4">💪 Relationship Strengths</h3>
+            <ul id="strengths" class="space-y-2 text-dark-300">
+              <!-- Populated by JS -->
+            </ul>
+          </div>
+          <div class="card">
+            <h3 class="font-heading text-lg font-semibold text-yellow-400 mb-4">⚠️ Potential Challenges</h3>
+            <ul id="challenges" class="space-y-2 text-dark-300">
+              <!-- Populated by JS -->
+            </ul>
+          </div>
+        </div>
+
+        <!-- Tips -->
+        <div class="card bg-primary-500/10 border-primary-500/30">
+          <h3 class="font-heading text-xl font-bold text-primary-400 mb-4">💡 Relationship Tips</h3>
+          <ul id="tips" class="space-y-3 text-dark-300">
+            <!-- Populated by JS -->
+          </ul>
+        </div>
+
+        <!-- Learn More -->
+        <div class="card bg-dark-800/30 border-primary-500/20">
+          <h3 class="font-heading text-xl font-bold text-dark-50 mb-4">Deepen Your Understanding</h3>
+          <p class="text-dark-400 mb-4">
+            Learn more about how Saju compatibility works and what it means for relationships.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <a href="/guides/saju-compatibility-what-it-really-means" class="btn-secondary text-sm">Understanding Compatibility</a>
+            <a href="/guides/how-to-use-saju-responsibly" class="btn-secondary text-sm">Using Saju Responsibly</a>
+          </div>
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-xl">
+          <p class="text-sm text-dark-400">
+            <strong class="text-yellow-400">Remember:</strong> This analysis is for entertainment only. 
+            Relationship success depends on communication, effort, respect, and many other factors. 
+            No birthdate analysis can predict or guarantee relationship outcomes.
+          </p>
+        </div>
+
+        <!-- Try Again -->
+        <div class="text-center">
+          <button id="reset-btn" class="btn-secondary">
+            Try Another Comparison
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    import { calculateFourPillars, calculateCompatibility } from '../../lib/saju';
+
+    const form = document.getElementById('compatibility-form') as HTMLFormElement;
+    const formSection = document.getElementById('form-section') as HTMLDivElement;
+    const resultsSection = document.getElementById('results-section') as HTMLDivElement;
+    const resetBtn = document.getElementById('reset-btn') as HTMLButtonElement;
+
+    const scoreLabels = {
+      communication: { label: 'Communication', icon: '💬', description: 'How well you express and understand each other' },
+      values: { label: 'Shared Values', icon: '⚖️', description: 'Alignment in core beliefs and priorities' },
+      emotionalStyle: { label: 'Emotional Style', icon: '💕', description: 'Compatibility in emotional expression and needs' },
+      conflictHandling: { label: 'Conflict Resolution', icon: '🤝', description: 'Ability to work through disagreements' },
+      growth: { label: 'Growth Potential', icon: '🌱', description: 'Capacity to help each other develop' },
+    };
+
+    function createScoreBar(key: string, score: number): string {
+      const info = scoreLabels[key as keyof typeof scoreLabels];
+      const color = score >= 70 ? 'bg-green-500' : score >= 50 ? 'bg-yellow-500' : 'bg-red-400';
+      
+      return `
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-medium text-dark-200">${info.icon} ${info.label}</span>
+            <span class="text-dark-400">${score}/100</span>
+          </div>
+          <div class="h-3 bg-dark-800 rounded-full overflow-hidden">
+            <div class="h-full ${color} rounded-full transition-all duration-700" style="width: ${score}%"></div>
+          </div>
+          <p class="text-xs text-dark-500 mt-1">${info.description}</p>
+        </div>
+      `;
+    }
+
+    function animateScore(target: number) {
+      const scoreText = document.getElementById('score-text')!;
+      const scoreCircle = document.getElementById('score-circle')!;
+      
+      let current = 0;
+      const duration = 1000;
+      const startTime = performance.now();
+      
+      function update(currentTime: number) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        current = Math.round(progress * target);
+        scoreText.textContent = current.toString();
+        
+        // Update circle (283 is the circumference)
+        const offset = 283 - (283 * (progress * target)) / 100;
+        scoreCircle.style.strokeDashoffset = offset.toString();
+        
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        }
+      }
+      
+      requestAnimationFrame(update);
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(form);
+      
+      const name1 = (formData.get('name1') as string) || 'Person 1';
+      const name2 = (formData.get('name2') as string) || 'Person 2';
+      const birthDate1 = formData.get('birthDate1') as string;
+      const birthDate2 = formData.get('birthDate2') as string;
+      const birthTime1 = formData.get('birthTime1') as string;
+      const birthTime2 = formData.get('birthTime2') as string;
+      
+      if (!birthDate1 || !birthDate2) return;
+
+      // Parse dates
+      const [year1, month1, day1] = birthDate1.split('-').map(Number);
+      const [year2, month2, day2] = birthDate2.split('-').map(Number);
+      
+      const hour1 = birthTime1 ? parseInt(birthTime1.split(':')[0], 10) : undefined;
+      const hour2 = birthTime2 ? parseInt(birthTime2.split(':')[0], 10) : undefined;
+
+      // Calculate pillars
+      const pillars1 = calculateFourPillars(year1, month1, day1, hour1);
+      const pillars2 = calculateFourPillars(year2, month2, day2, hour2);
+      
+      // Calculate compatibility
+      const result = calculateCompatibility(pillars1, pillars2);
+
+      // Display results
+      document.getElementById('result-names')!.textContent = `${name1} & ${name2}`;
+      document.getElementById('score-summary')!.textContent = result.summary;
+
+      // Sub scores
+      const subScoresContainer = document.getElementById('sub-scores')!;
+      subScoresContainer.innerHTML = Object.entries(result.scores)
+        .filter(([key]) => key !== 'overall')
+        .map(([key, score]) => createScoreBar(key, score))
+        .join('');
+
+      // Strengths
+      const strengthsList = document.getElementById('strengths')!;
+      strengthsList.innerHTML = result.strengths.length > 0
+        ? result.strengths.map(s => `<li class="flex items-start gap-2"><span class="text-green-400">•</span>${s}</li>`).join('')
+        : '<li class="text-dark-500">Consider exploring your unique dynamics together</li>';
+
+      // Challenges
+      const challengesList = document.getElementById('challenges')!;
+      challengesList.innerHTML = result.challenges.length > 0
+        ? result.challenges.map(c => `<li class="flex items-start gap-2"><span class="text-yellow-400">•</span>${c}</li>`).join('')
+        : '<li class="text-dark-500">No major challenges identified</li>';
+
+      // Tips
+      const tipsList = document.getElementById('tips')!;
+      tipsList.innerHTML = result.tips
+        .map(t => `<li class="flex items-start gap-2"><span class="text-primary-400">→</span>${t}</li>`)
+        .join('');
+
+      // Show results and animate
+      formSection.classList.add('hidden');
+      resultsSection.classList.remove('hidden');
+      
+      resultsSection.scrollIntoView({ behavior: 'smooth' });
+      
+      setTimeout(() => {
+        animateScore(result.scores.overall);
+      }, 300);
+    });
+
+    resetBtn.addEventListener('click', () => {
+      resultsSection.classList.add('hidden');
+      formSection.classList.remove('hidden');
+      form.reset();
+      formSection.scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
+</BaseLayout>

@@ -1,0 +1,107 @@
+---
+const currentYear = new Date().getFullYear();
+
+const footerLinks = {
+  tools: [
+    { href: '/tools/saju-calculator', label: 'Saju Calculator' },
+    { href: '/tools/compatibility', label: 'Compatibility Test' },
+  ],
+  resources: [
+    { href: '/guides', label: 'All Guides' },
+    { href: '/about', label: 'About Us' },
+    { href: '/contact', label: 'Contact' },
+  ],
+  legal: [
+    { href: '/privacy-policy', label: 'Privacy Policy' },
+    { href: '/cookies', label: 'Cookies' },
+    { href: '/terms', label: 'Terms of Service' },
+    { href: '/disclaimer', label: 'Disclaimer' },
+  ],
+};
+---
+
+<footer class="bg-dark-900 border-t border-dark-800">
+  <!-- Disclaimer Banner -->
+  <div class="bg-dark-800/50 border-b border-dark-700/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <p class="text-center text-sm text-dark-400">
+        <span class="text-primary-400 font-medium">⚠️ Entertainment & Self-Reflection Only:</span>
+        The information provided on this site is for cultural education and entertainment purposes only.
+        It is not a substitute for professional medical, legal, psychological, or financial advice.
+      </p>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <!-- Brand -->
+      <div class="lg:col-span-1">
+        <a href="/" class="flex items-center space-x-2 mb-4">
+          <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-accent-500 rounded-xl flex items-center justify-center">
+            <span class="text-white font-bold text-lg">四</span>
+          </div>
+          <span class="font-heading font-bold text-xl text-dark-50">Saju Guide</span>
+        </a>
+        <p class="text-dark-400 text-sm leading-relaxed">
+          Explore the ancient Korean wisdom of Four Pillars (Saju).
+          Learn about your personality traits and relationship compatibility through this fascinating cultural tradition.
+        </p>
+      </div>
+
+      <!-- Tools -->
+      <div>
+        <h4 class="font-heading font-semibold text-dark-100 mb-4">Tools</h4>
+        <ul class="space-y-2">
+          {footerLinks.tools.map((link) => (
+            <li>
+              <a href={link.href} class="text-dark-400 hover:text-primary-400 text-sm transition-colors duration-200">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Resources -->
+      <div>
+        <h4 class="font-heading font-semibold text-dark-100 mb-4">Resources</h4>
+        <ul class="space-y-2">
+          {footerLinks.resources.map((link) => (
+            <li>
+              <a href={link.href} class="text-dark-400 hover:text-primary-400 text-sm transition-colors duration-200">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Legal -->
+      <div>
+        <h4 class="font-heading font-semibold text-dark-100 mb-4">Legal</h4>
+        <ul class="space-y-2">
+          {footerLinks.legal.map((link) => (
+            <li>
+              <a href={link.href} class="text-dark-400 hover:text-primary-400 text-sm transition-colors duration-200">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="mt-12 pt-8 border-t border-dark-800">
+      <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+        <p class="text-dark-500 text-sm">
+          © {currentYear} Korean Saju Guide. All rights reserved.
+        </p>
+        <p class="text-dark-500 text-xs">
+          This site uses cookies for analytics. By using this site, you agree to our
+          <a href="/cookies" class="text-primary-400 hover:underline">Cookie Policy</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
