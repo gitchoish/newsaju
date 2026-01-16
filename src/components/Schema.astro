@@ -1,0 +1,66 @@
+---
+interface Props {
+  type?: 'website' | 'article' | 'tool';
+  title?: string;
+  description?: string;
+  url?: string;
+  image?: string;
+}
+
+const { 
+  type = 'website', 
+  title = "Korean Saju Guide", 
+  description = "Explore the ancient Korean wisdom of Four Pillars (Saju).",
+  url = Astro.url.href,
+  image = "/og-default.png"
+} = Astro.props;
+
+const siteUrl = Astro.site?.toString() || "https://newsaju.pages.dev/";
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Korean Saju Guide",
+  "url": siteUrl,
+  "description": description,
+  "publisher": {
+    "@type": "Organization",
+    "name": "Korean Saju Guide Team",
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${siteUrl}favicon.svg`
+    }
+  }
+};
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Korean Saju Guide",
+  "url": siteUrl,
+  "logo": `${siteUrl}favicon.svg`,
+  "sameAs": [
+    "https://twitter.com/newsaju",
+    "https://facebook.com/newsaju"
+  ]
+};
+
+const toolSchema = type === 'tool' ? {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": title,
+  "operatingSystem": "All",
+  "applicationCategory": "EducationalApplication",
+  "description": description,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+} : null;
+
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+{toolSchema && <script type="application/ld+json" set:html={JSON.stringify(toolSchema)} />}

@@ -1,13 +1,15 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://newsaju.pages.dev',
   output: 'static',
   integrations: [
     tailwind(),
-    mdx()
+    mdx(),
+    sitemap()
   ],
   markdown: {
     shikiConfig: {

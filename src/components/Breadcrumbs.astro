@@ -1,0 +1,54 @@
+---
+const { pathname } = Astro.url;
+const pathSegments = pathname.split('/').filter(segment => segment !== '');
+
+const breadcrumbs = pathSegments.map((segment, index) => {
+  const href = `/${pathSegments.slice(0, index + 1).join('/')}`;
+  const label = segment
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+  return { label, href };
+});
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": Astro.site?.toString() || "https://newsaju.pages.dev/"
+    },
+    ...breadcrumbs.map((crumb, index) => ({
+      "@type": "ListItem",
+      "position": index + 2,
+      "name": crumb.label,
+      "item": new URL(crumb.href, Astro.site || "https://newsaju.pages.dev/").toString()
+    }))
+  ]
+};
+---
+
+<nav aria-label="Breadcrumb" class="mb-8">
+  <ol class="flex flex-wrap items-center gap-2 text-sm text-dark-500">
+    <li>
+      <a href="/" class="hover:text-primary-400 transition-colors">Home</a>
+    </li>
+    {breadcrumbs.map((crumb, index) => (
+      <li class="flex items-center gap-2">
+        <svg class="w-4 h-4 text-dark-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+        {index === breadcrumbs.length - 1 ? (
+          <span class="text-dark-300 font-medium" aria-current="page">{crumb.label}</span>
+        ) : (
+          <a href={crumb.href} class="hover:text-primary-400 transition-colors">{crumb.label}</a>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
