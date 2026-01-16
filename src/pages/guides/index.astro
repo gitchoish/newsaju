@@ -28,20 +28,26 @@ const allTags = [...new Set(allGuides.flatMap(guide => guide.data.tags))];
         </p>
       </div>
 
-      <!-- Tags Filter (optional visual) -->
-      <div class="flex flex-wrap justify-center gap-2 mb-12">
-        <span class="text-sm px-3 py-1 rounded-full bg-primary-500/20 text-primary-400 border border-primary-500/30">
+      <!-- Tags Filter -->
+      <div class="flex flex-wrap justify-center gap-2 mb-12" id="filter-bar">
+        <button 
+          class="filter-btn active text-sm px-4 py-2 rounded-full bg-primary-500/20 text-primary-400 border border-primary-500/30 hover:border-primary-500/50 transition-all"
+          data-filter="all"
+        >
           All Guides ({allGuides.length})
-        </span>
-        {allTags.slice(0, 6).map(tag => (
-          <span class="text-sm px-3 py-1 rounded-full bg-dark-800/50 text-dark-400 border border-dark-700">
+        </button>
+        {allTags.map(tag => (
+          <button 
+            class="filter-btn text-sm px-4 py-2 rounded-full bg-dark-800/50 text-dark-400 border border-dark-700 hover:border-dark-600 transition-all hover:text-dark-200"
+            data-filter={tag}
+          >
             {tag}
-          </span>
+          </button>
         ))}
       </div>
 
       <!-- Guides Grid -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="guides-grid">
         {sortedGuides.map((guide) => (
           <GuideCard
             title={guide.data.title}
@@ -53,11 +59,53 @@ const allTags = [...new Set(allGuides.flatMap(guide => guide.data.tags))];
         ))}
       </div>
 
-      {sortedGuides.length === 0 && (
-        <div class="text-center py-12">
-          <p class="text-dark-400">No guides available yet. Check back soon!</p>
-        </div>
-      )}
+      <div class="text-center py-12 hidden" id="no-guides">
+        <p class="text-dark-400">No guides found for this tag.</p>
+      </div>
     </div>
   </section>
+
+  <style>
+    .filter-btn.active {
+      @apply bg-primary-500/20 text-primary-400 border-primary-500/30;
+    }
+  </style>
+
+  <script>
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const guideCards = document.querySelectorAll('.guide-card');
+    const noGuides = document.getElementById('no-guides');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const filter = button.getAttribute('data-filter');
+        
+        // Update active state
+        filterButtons.forEach(btn => {
+          btn.classList.remove('active', 'bg-primary-500/20', 'text-primary-400', 'border-primary-500/30');
+          btn.classList.add('bg-dark-800/50', 'text-dark-400', 'border-dark-700');
+        });
+        
+        button.classList.add('active', 'bg-primary-500/20', 'text-primary-400', 'border-primary-500/30');
+        button.classList.remove('bg-dark-800/50', 'text-dark-400', 'border-dark-700');
+
+        let visibleCount = 0;
+        guideCards.forEach(card => {
+          const tags = card.getAttribute('data-tags')?.split(',') || [];
+          if (filter === 'all' || tags.includes(filter)) {
+            (card as HTMLElement).style.display = 'block';
+            visibleCount++;
+          } else {
+            (card as HTMLElement).style.display = 'none';
+          }
+        });
+
+        if (visibleCount === 0) {
+          noGuides?.classList.remove('hidden');
+        } else {
+          noGuides?.classList.add('hidden');
+        }
+      });
+    });
+  </script>
 </BaseLayout>

@@ -10,7 +10,7 @@ interface Props {
 const { title, description, href, tags = [], readingTime } = Astro.props;
 ---
 
-<a href={href} class="card card-glow group block h-full">
+<a href={href} class="card card-glow group block h-full guide-card" data-tags={tags.join(',')}>
   <article class="relative z-10 h-full flex flex-col">
     <!-- Tags -->
     {tags.length > 0 && (
