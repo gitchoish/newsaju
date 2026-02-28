@@ -194,6 +194,13 @@ declare module 'astro:content' {
   collection: "guides";
   data: InferEntrySchema<"guides">
 } & { render(): Render[".mdx"] };
+"glossary-of-saju-terms-essential-vocabulary.mdx": {
+	id: "glossary-of-saju-terms-essential-vocabulary.mdx";
+  slug: "glossary-of-saju-terms-essential-vocabulary";
+  body: string;
+  collection: "guides";
+  data: InferEntrySchema<"guides">
+} & { render(): Render[".mdx"] };
 "heavenly-stems-explained.mdx": {
 	id: "heavenly-stems-explained.mdx";
   slug: "heavenly-stems-explained";
